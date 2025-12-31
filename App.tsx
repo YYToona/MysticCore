@@ -37,8 +37,8 @@ export default function App() {
     e.preventDefault();
     setStage('astrology-input'); 
     
-    // Simulate backend call
-    const chartData = await calculateChart(userInfo.birthDate, userInfo.birthTime);
+    // Calls the service which attempts the Python backend first, then falls back to simulation
+    const chartData = await calculateChart(userInfo.birthDate, userInfo.birthTime, userInfo.birthPlace);
     setChart(chartData);
     setStage('tarot-reading');
   };

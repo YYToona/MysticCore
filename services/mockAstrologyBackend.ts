@@ -35,34 +35,39 @@ const generateMockChart = (date: string, time: string): AstrologyChart => {
   };
 };
 
-export const calculateChart = async (date: string, time: string): Promise<AstrologyChart> => {
+export const calculateChart = async (date: string, time: string, place: string = "London, UK"): Promise<AstrologyChart> => {
   try {
-    // In a real scenario, we would get lat/lon from the browser or an input.
-    // For this MVP, we default to London (51.5074, -0.1278) to ensure the Python backend
-    // has valid numbers to crunch.
+    // In a real production app, we would use the 'place' string to geocode to lat/lon 
+    // using the Google Maps API or similar.
+    // For this implementation, we default to London coordinates to ensure the Python backend 
+    // has valid floats to compute with, as Kerykeion requires specific coordinates.
+    // The backend uses the 'place' string for chart metadata if available.
+    
+    // Attempt to fetch from the rigorous Python backend
     const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
             date, 
             time, 
-            place: "London, UK",
-            lat: 51.5074,
-            lon: -0.1278
+            place: place,
+            lat: 51.5074, // Default Lat (London)
+            lon: -0.1278  // Default Lon (London)
         })
     });
 
     if (!response.ok) {
-        throw new Error('API Calculation failed');
+        throw new Error(`API Calculation failed: ${response.statusText}`);
     }
 
     const data = await response.json();
     return data as AstrologyChart;
 
   } catch (error) {
-    console.warn("Backend unavailable, using spiritual fallback simulation.", error);
-    // Fallback to mock if Python backend is not running locally or fails
-    await new Promise(resolve => setTimeout(resolve, 800)); // Simulate calculation time
+    console.warn("Backend unavailable or failed, utilizing spiritual fallback simulation.", error);
+    
+    // Fallback to mock if Python backend is not running locally or fails deployment
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate calculation time
     return generateMockChart(date, time);
   }
 };
