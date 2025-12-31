@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -24,6 +27,9 @@
     "vite": "^5.4.1"
   },
   "overrides": {
+    "node-fetch": "^3.3.2"
+  },
+  "resolutions": {
     "node-fetch": "^3.3.2"
   }
 }
