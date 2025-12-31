@@ -3,5 +3,11 @@
     "api/**/*.py": {
       "runtime": "python@3.9"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.py"
+    }
+  ]
 }
