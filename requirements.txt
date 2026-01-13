@@ -1,1 +1,5 @@
-kerykeion>=4.0.0
+fastapi
+uvicorn
+pydantic
+kerykeion
+requests
