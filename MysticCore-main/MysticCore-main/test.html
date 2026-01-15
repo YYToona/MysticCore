@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MysticCore - 占卜测试</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(15, 12, 41, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            text-align: center;
+            color: #fbbf24;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .subtitle {
+            text-align: center;
+            color: #a78bfa;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: rgba(30, 27, 75, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        .section h2 {
+            color: #fbbf24;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(251, 191, 36, 0.3);
+            padding-bottom: 10px;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .label {
+            color: #a78bfa;
+            font-weight: bold;
+        }
+        .value {
+            color: #e0e0e0;
+        }
+        .card-display {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .card {
+            text-align: center;
+            padding: 15px;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+        .card-title {
+            color: #fbbf24;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .card-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .card-position {
+            color: #a78bfa;
+            font-size: 0.8em;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #fbbf24, #a855f7);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+        button:disabled {
+            background: #4a4a4a;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #output {
+            background: rgba(15, 12, 41, 0.9);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 200px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        .loading::after {
+            content: '✨ 正在连接神谕...';
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        .success {
+            border-color: #10b981;
+        }
+        .error {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 MysticCore</h1>
+        <div class="subtitle">占卜测试 - 模拟 Vercel 环境</div>
+
+        <div class="section">
+            <h2>📋 测试用户</h2>
+            <div class="data-row">
+                <span class="label">姓名:</span>
+                <span class="value">测试用户</span>
+            </div>
+            <div class="data-row">
+                <span class="label">占卜问题:</span>
+                <span class="value">我接下来的事业发展会如何？</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🃏 塔罗牌阵</h2>
+            <div class="card-display">
+                <div class="card">
+                    <div class="card-title">过去</div>
+                    <div class="card-name">愚者</div>
+                    <div class="card-position">正位 (Upright)</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">现在</div>
+                    <div class="card-name">星星</div>
+                    <div class="card-position">正位 (Upright)</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">未来</div>
+                    <div class="card-name">世界</div>
+                    <div class="card-position">正位 (Upright)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⭐ 星盘数据</h2>
+            <div class="data-row">
+                <span class="label">太阳:</span>
+                <span class="value">28° Leo (第10宫)</span>
+            </div>
+            <div class="data-row">
+                <span class="label">月亮:</span>
+                <span class="value">15° Cancer (第4宫)</span>
+            </div>
+            <div class="data-row">
+                <span class="label">上升:</span>
+                <span class="value">22° Scorpio (第1宫)</span>
+            </div>
+        </div>
+
+        <button id="runTest" onclick="runReadingTest()">✨ 开始占卜</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyDVd8ly7rGW-hzIpo_UG7PJ4MlxOKokfUA';
+
+        const testPayload = {
+            language: 'zh',
+            user_info: {
+                name: '测试用户',
+                question: '我接下来的事业发展会如何？'
+            },
+            tarot_spread: {
+                past: {
+                    card_name: '愚者',
+                    position: 'Upright',
+                    meaning_keywords: ['开始', '天真', '自发性']
+                },
+                present: {
+                    card_name: '星星',
+                    position: 'Upright',
+                    meaning_keywords: ['希望', '信念', '目标']
+                },
+                future: {
+                    card_name: '世界',
+                    position: 'Upright',
+                    meaning_keywords: ['完成', '整合', '成就']
+                }
+            },
+            astrology_chart: {
+                sun: { sign: 'Leo', house: 10, deg: 28 },
+                moon: { sign: 'Cancer', house: 4, deg: 15 },
+                rising: { sign: 'Scorpio', house: 1, deg: 22 },
+                aspects: ['Sun Trine Moon', 'Venus Square Mars']
+            }
+        };
+
+        const SYSTEM_PROMPT_ZH = `
+你是一位逻辑严密、直觉敏锐且深谙人性的AI塔罗大师"MysticCore"。请遵循以下步骤进行深度的占卜解读：
+
+1. **信息接收与解析**
+用户：${testPayload.user_info.name}
+核心问题：${testPayload.user_info.question}
+塔罗牌阵：${testPayload.tarot_spread.past.card_name}(${testPayload.tarot_spread.past.position}), ${testPayload.tarot_spread.present.card_name}(${testPayload.tarot_spread.present.position}), ${testPayload.tarot_spread.future.card_name}(${testPayload.tarot_spread.future.position})
+
+2. **命理基础与逻辑澄清**
+基于传入的星盘数据（太阳/月亮/上升），简要说明其中与问题最相关的一个能量。
+*逻辑分支：若用户出生时间看似不精确（如整点或默认值），请务必补充说明："由于具体出生时间不详，我将略过上升星座的精确界定，重点分析塔罗牌阵的内在逻辑与元素互动。"*
+
+3. **塔罗牌阵深度分析（原型视角）**
+依次分析三张牌。在解释牌义时，请尝试引入**荣格原型心理学**（如"阴影"、"阿尼玛/阿尼姆斯"、"英雄之旅"）或**神话典故**来辅助解释，增加解读的厚度。
+- 过去 (${testPayload.tarot_spread.past.card_name}): 潜意识的成因与原型根基。
+- 现在 (${testPayload.tarot_spread.present.card_name}): 当前的挑战与显化的能量。
+- 未来 (${testPayload.tarot_spread.future.card_name}): 能量流动的趋势与整合的方向。
+*注意：必须严格结合牌的正逆位含义进行辩证分析。*
+
+4. **符号深度关联**
+至少找出一组 塔罗牌象征元素（行星/星座/数字） 与 用户命盘或问题领域 的对应或对比关系（例如："你的月亮在双子座，而这张宝剑牌正好呼应了这种思维的二元性..."）。
+
+5. **综合叙事与建议**
+将以上分析整合为一段连贯的个性化解读。
+最后提供三层建议：
+1. **心态调整**（内在炼金）
+2. **具体行动**（现实显化）
+3. **潜在盲点**（阴影觉察）
+
+6. **解读风格**
+请以**"智慧导师"**的口吻，语调沉稳、深邃且充满启迪。
+- 避免机械的断言，使用"这可能暗示..."、"这股能量邀请你..."等引导性语言。
+- 使用 Markdown 格式。
+`;
+
+        async function runReadingTest() {
+            const button = document.getElementById('runTest');
+            const output = document.getElementById('output');
+
+            button.disabled = true;
+            output.className = '';
+            output.innerHTML = '<div class="loading"></div>';
+
+            try {
+                // 使用 Gemini REST API
+                const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+                
+                const requestBody = {
+                    contents: [{
+                        parts: [{
+                            text: SYSTEM_PROMPT_ZH + '\n\n' + JSON.stringify(testPayload)
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.8,
+                    }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`API 请求失败: ${response.status} - ${JSON.stringify(errorData)}`);
+                }
+
+                const data = await response.json();
+                const result = data.candidates[0].content.parts[0].text;
+
+                output.className = 'success';
+                output.innerHTML = `<h3 style="color: #fbbf24; margin-top: 0;">✨ 神谕降临</h3><hr style="border-color: rgba(251, 191, 36, 0.3); margin: 15px 0;">${result}`;
+                output.innerHTML += '<hr style="border-color: rgba(251, 191, 36, 0.3); margin: 15px 0;"><div style="text-align: center; color: #10b981;">✅ 测试完成</div>';
+
+            } catch (error) {
+                output.className = 'error';
+                output.innerHTML = `<h3 style="margin-top: 0;">❌ 测试失败</h3><p>${error.message}</p>`;
+            }
+
+            button.disabled = false;
+            button.textContent = '🔄 重新测试';
+        }
+    </script>
+</body>
+</html>
